@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LionUp.Models
 {
-    public class EventResponse
+    public partial class EventResponse
     {
         public int Id { get; set; }
-        public virtual User User { get; set; }
+        public int EventId { get; set; }
+        public string Response { get; set; }
         public int UserId { get; set; }
-        public isGoing Response { get; set; }
-    }
-    public enum isGoing
-    {
-        Going,
-        NotGoing,
-        Maybe
+
+        public virtual Event Event { get; set; }
+        public virtual User User { get; set; }
     }
 }
