@@ -3,18 +3,16 @@ using System.Collections.Generic;
 
 namespace LionUp.Models
 {
-    public partial class Major
+    public partial class Semester
     {
-        public Major()
+        public Semester()
         {
             Course = new HashSet<Course>();
-            User = new HashSet<User>();
         }
 
         public int Id { get; set; }
-        public string MajorCategory { get; set; }
+        public string Semester1 { get; set; }
 
         public virtual ICollection<Course> Course { get; set; }
-        public virtual ICollection<User> User { get; set; }
     }
 }
