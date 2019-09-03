@@ -1,14 +1,13 @@
 import React from 'react';
-import { Route } from 'react-router';
-import Layout from './components/Layout';
-import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
+import LoginRegister from './components/Account/LoginRegister';
 
-export default () => (
-  <Layout>
-    <Route exact path='/' component={Home} />
-    <Route path='/counter' component={Counter} />
-    <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
-  </Layout>
-);
+export class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <LoginRegister />
+            </div>
+        );
+    }
+}
+export default App;
