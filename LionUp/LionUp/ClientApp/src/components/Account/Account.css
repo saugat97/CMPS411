@@ -1,223 +1,203 @@
-﻿
-body {
-    font-family: 'Josefin Sans', sans-serif;
+﻿body {
+    font-family: "Josefin Sans", sans-serif;
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     position: fixed;
-    top: 0;
+}
+
+.popup {
+    position: fixed;
+    width: 50%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     bottom: 0;
+    right: 0;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.popup\_inner {
+    background-color: #fefefe;
+    margin: 3% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 75%; /* Could be more or less, depending on screen size */
+    padding: 20px;
+    position: fixed;
+}
+
+/* Modal Content/Box */
+.modal-contents {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 75%; /* Could be more or less, depending on screen size */
+    padding: 10px;
 }
 
 .bg {
-  background-image: url("https://i.imgur.com/kFJn8uP.jpg");
-  width: 50%;
-  position: absolute;
-  left: 0px;
-  height: 100vh;
-  background-size: cover;
+    background-image: url("https://i.imgur.com/kFJn8uP.jpg");
+    width: 50%;
+    position: absolute;
+    left: 0px;
+    height: 100vh;
+    background-size: cover;
 }
 
 .form {
-  width: 50%;
-  position: absolute;
-  right: -100px;
-  top: 80px;
+    width: 50%;
+    position: absolute;
+    right: -100px;
+    top: 60px;
 }
 
 .form-title {
-  font-size: 32px;
-  padding: 20% 0 0 2%;
+    font-size: 32px;
+    padding: 20% 0 0 1%;
 }
 
 .form-register {
-  font-size: 32px;
-  padding: 2% 0 0 2%;
+    font-size: 32px;
+    padding: 2% 0 0 2%;
 }
 
 .form-subtitle {
-  font-size: 15px;
-  padding-top: 12px;
-  color: #757171;
+    font-size: 15px;
+    
+    color: #757171;
 }
 
 .form-content {
-  padding: 12px;
-  width: 50%;
+    padding: 5px 1px 5px 8px;
+    width: 56%;
 }
 
 input[type="text"],
 [type="password"] {
-  border: 2px solid gray;
-  border-radius: 4px;
-  width: 92%;
-  padding: 12px;
+    border: 2px solid gray;
+    border-radius: 4px;
+    width: 92%;
+    padding: 12px;
 }
 
-input[type="text"]:focus,
-[type="password"]:focus {
-  border: 3px solid #cfb315;
-}
+    input[type="text"]:focus,
+    [type="password"]:focus {
+        border: 3px solid #cfb315;
+    }
 
 .dropbtn {
-  border: 2px solid gray;
-  border-radius: 4px;
-  padding: 10px;
-  font-family: "Josefin Sans", sans-serif;
-  cursor: pointer;
-  font-size: 20px;
-  width: 98%;
+    border: 2px solid gray;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: "Josefin Sans", sans-serif;
+    cursor: pointer;
+    font-size: 20px;
+    width: 92%;
 }
 
 .form-model {
-  padding: 12px;
-  width: 80%;
+    padding: 6px;
+    width: 80%;
 }
 
-.btn {
-  background-color: #2d3e36;
-  border: none;
-  color: #e3c917;
-  padding: 14px 26px;
-  font-family: "Josefin Sans", sans-serif;
-  margin: 4px 10px;
-  cursor: pointer;
-  width: 50%;
-  text-align: center;
-  font-size: 20px;
-  border-radius: 4px;
-}
-
-.btn-cancel {
-  background-color: red;
-  color: #2d3e36;
-  width: 50%;
-}
-
-.btn-register {
-  background-color: white;
-  border: none;
-  font-family: "Josefin Sans", sans-serif;
-  cursor: pointer;
-  font-size: 20px;
-  padding: 5px 10px 5px 10px;
-  margin: 10px 0 0 15px;
-}
-
-.form-register-content {
-  font-size: 18px;
-  padding: 12px 0 0 12px;
-  color: #757171;
-}
-
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 0; /* Sit on top */
-  right: 0;
-  top: 0;
-  width: 50%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-  padding-top: 100px;
-}
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 75%; /* Could be more or less, depending on screen size */
-  padding: 30px;
-}
-/* The Close Button (x) */
-.close {
-  position: relative;
-  float: right;
-  color: #000;
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: red;
-  cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s;
-}
-
-@-webkit-keyframes animatezoom {
-  from {
-    -webkit-transform: scale(0);
-  }
-
-  to {
-    -webkit-transform: scale(1);
-  }
-}
-
-@keyframes animatezoom {
-  from {
-    transform: scale(0);
-  }
-
-  to {
-    transform: scale(1);
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .bg {
-    background-image: url("https://i.imgur.com/OioRHa7.jpg");
-    width: 100%;
-  }
-
-  .form {
-    width: 100%;
-    top: 15px;
-  }
-
-  .form-title {
-    color: white;
-    font-size: 32px;
-    padding: 20% 0 0 2%;
-  }
-
-  .form-subtitle {
-    color: white;
-    font-size: 12px;
-    padding-top: 12px;
-  }
-
-  .form-register-click {
-    /*Click here to register*/
-    background-color: white;
-    font-size: 22px;
-  }
-
-  .btn {
+.button {
     background-color: #2d3e36;
+    border: none;
     color: #e3c917;
-    border: 1px solid #e3c917;
-  }
+    padding: 4px 10px;
+    margin: 4px 10px;
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 4px;
+}
 
-  .modal {
-    width: 100%; /* Full width */
-    padding-top: 0px;
-  }
-
-  .btn-cancel {
+.button-cancel {
     background-color: red;
     color: #2d3e36;
     width: 50%;
-  }
+}
 
-  .form-model {
-    padding: 8px;
-    width: 80%;
-  }
+.button-register {
+    background-color: white;
+    border: none;
+    font-family: "Josefin Sans", sans-serif;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0px 0px 0px 0px;
+    margin: 10px 0 0 12px;
+}
+
+.form-register-content {
+    font-size: 18px;
+    padding: 12px 0 0 12px;
+    color: #757171;
+}
+.select{
+    width: 92%;
+}
+
+/* The Close Button (x) */
+
+@media only screen and (max-width: 600px) {
+    .bg {
+        background-image: url("https://i.imgur.com/OioRHa7.jpg");
+        width: 100%;
+    }
+
+    .form {
+        width: 100%;
+        top: 20px;
+    }
+
+    .form-title {
+        color: white;
+        font-size: 42px;
+        padding: 20% 0 0 2%;
+    }
+
+    .form-subtitle {
+        color: white;
+        font-size: 15px;
+        padding-top: 12px;
+    }
+
+    .form-register-click {
+        /*Click here to register*/
+        background-color: white;
+        font-size: 22px;
+    }
+
+    .btn {
+        background-color: #2d3e36;
+        color: #e3c917;
+        border: 1px solid #e3c917;
+    }
+
+    .btn-register {
+        text-decoration-color: #fefefe;
+        border: none;
+        font-family: "Josefin Sans", sans-serif;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 0px 0px 0px 0px;
+        margin: 10px 0 0 12px;
+    }
+
+    .popup {
+        width: 100%; /* Full width */
+        padding-top: 0px;
+    }
+
+    .btn-cancel {
+        background-color: red;
+        color: #2d3e36;
+        width: 50%;
+    }
+
+    .form-model {
+        padding: 8px;
+        width: 80%;
+    }
 }
