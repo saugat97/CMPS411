@@ -51,7 +51,7 @@ class Register extends Component {
                         </div>
                         <div className="form-model">
 
-                            <Select className="select" soptions={Major} />
+                            <Select className="select" options={Major} />
 
                         </div>
                         <button type="submit" className="button">
