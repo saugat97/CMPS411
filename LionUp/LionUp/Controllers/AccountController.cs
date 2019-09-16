@@ -1,10 +1,16 @@
-﻿using LionUp.Data;
+﻿using Email.Services;
+using LionUp.Data;
 using LionUp.Models;
+using LionUp.ViewModel;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -16,14 +22,25 @@ namespace LionUp.Controllers
     {
         private readonly LionUpContext _context;
 
-        public AccountController(LionUpContext context)
+        private readonly IEmailService _emailService;
+
+        private IHostingEnvironment _environment;
+
+        public AccountController(LionUpContext context, IEmailService emailService, IHostingEnvironment environment)
         {
             _context = context;
+            _emailService = emailService;
+            _environment = environment;
         }
 
         [HttpPost("register")]
-        public int Register(User model)
+        public IActionResult Register(User model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var user = new User
             {
                 FirstName = model.FirstName,
@@ -36,25 +53,77 @@ namespace LionUp.Controllers
             _context.User.Add(user);
             _context.SaveChanges();
 
-            return 1;
+            var projectRootPath = _environment.WebRootPath;
+
+            var pathToFile = _environment.WebRootPath
+                 + Path.DirectorySeparatorChar.ToString()
+                 + "Template"
+                 + Path.DirectorySeparatorChar.ToString()
+                 + "EmailTemplate.html";
+
+            string subject = "LionUp Registration";
+
+            var builder = new BodyBuilder();
+
+            using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
+            {
+
+                builder.HtmlBody = SourceReader.ReadToEnd();
+            }
+
+            string messageBody = string.Format(builder.HtmlBody,
+                   subject,
+                   String.Format("{0:dddd, d MMMM yyyy}", DateTime.Now),
+                   model.FirstName,
+                   model.SeluEmail
+                   );
+
+            _emailService.SendEmail(model.SeluEmail, subject, messageBody);
+
+            return Ok(model);
         }
 
-        [HttpPost("token")]
-        public ActionResult GetToken()
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginViewModel model)
         {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey2019"));
-            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256Signature);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            var token = new JwtSecurityToken(
-                    issuer: "mysite.com",
-                    audience: "mysite.com",
-                    claims: new List<Claim>(),
-                    expires: DateTime.Now.AddMinutes(10),
-                    signingCredentials: signingCredentials
-                );
+            if(model == null)
+            {
+                return Unauthorized();
+            }
 
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return Ok(new { Token = tokenString });
+            var user = _context.User.SingleOrDefault(u => u.SeluEmail == model.Email);
+            
+
+            if(user!= null)
+            {
+
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey2019"));
+                var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256Signature);
+
+                var token = new JwtSecurityToken(
+                        issuer: "mysite.com",
+                        audience: "mysite.com",
+                        claims: new Claim[] {
+                            new Claim(ClaimTypes.Email, user.SeluEmail)
+                        },
+                        expires: DateTime.Now.AddMinutes(10),
+                        signingCredentials: signingCredentials
+                    );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+                return Ok(new { Token = tokenString });
+            }
+
+            else
+            {
+                return Unauthorized();
+            }
+
         }
     }
 }

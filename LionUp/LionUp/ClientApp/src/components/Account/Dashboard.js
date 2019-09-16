@@ -25,7 +25,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 
@@ -60,7 +60,8 @@ export default function Dashobard() {
     setExpanded(!expanded);
     };
  return (
-            <view>
+     <view>
+         
                 <Row>
                     <Col>
                     </Col>
@@ -130,18 +131,8 @@ export default function Dashobard() {
                                         height: "80%"
                                     }}
                                 >
-                                    <ul style={{ listStyleType: "none", padding: "50px" }}>
-                                        <li>
-                                            <Link to="/">Home</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/Moodle">Moodle</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/Leonet">Leonet</Link>
-                                        </li>
-                                    </ul>
-
+                            
+                             
                                 </div>
 
                                

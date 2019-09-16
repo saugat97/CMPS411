@@ -6,6 +6,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = { showPopup: false };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     togglePopup() {
@@ -13,42 +14,73 @@ class Login extends Component {
             showPopup: !this.state.showPopup
         });
     }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        let dataJson = {};
+
+        for (const [key, value] of data.entries()) {
+            dataJson[key] = value;
+        }
+
+        
+        fetch('api/Account/Login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataJson)
+        }).then(response => response.json()
+        ).then(resData => {
+            localStorage.setItem("jwt", resData.token);
+            this.props.history.push('/home');
+        })
+            .catch(err => {
+                console.log(err);
+                alert("Username or password is incorrect.");
+            });
+    }
+
     render() {
         return (
-            <div>
-                <div className="bg"></div>
+            <form onSubmit={this.handleSubmit}>
+                <div>
+                    <div className="bg"></div>
 
-                <div className="form">
-                    <div className="form-title">
-                        Login
-            <div className="form-subtitle">
-                            Login to continue using Lion Up App.
-            </div>
-                    </div>
-                    <div className="form-content">
-                        <input type="text" placeholder="firstname.lastname@selu.edu" />
-                    </div>
-                    <div className="form-content">
-                        <input type="text" placeholder="*******" />
-                    </div>
-                    <div className="form-btn">
-                        <button className="button" type="submit">
+                    <div className="form">
+                        <div className="form-title">
                             Login
-            </button>
-                    </div>
-
-                    <button
-                        className="button-register"
-                        onClick={this.togglePopup.bind(this)}
-                    >
-                        {" "}
-                        Click here to Register ->
-          </button>
-                    {this.state.showPopup ? (
-                        <Register closePopup={this.togglePopup.bind(this)} />
-                    ) : null}
-                </div>
+            <div className="form-subtitle">
+                                Login to continue using Lion Up App.
             </div>
+                        </div>
+                        <div className="form-content">
+                            <input type="email" name="email" placeholder="firstname.lastname@selu.edu" required />
+                        </div>
+                        <div className="form-content">
+                            <input type="password" name="password" placeholder="*******" required />
+                        </div>
+                        <div className="form-btn">
+                            <button className="button" type="submit">
+                                Login
+            </button>
+                        </div>
+
+                        <button
+                            className="button-register"
+                            onClick={this.togglePopup.bind(this)}
+                        >
+                            {" "}
+                            Click here to Register ->
+          </button>
+                        {this.state.showPopup ? (
+                            <Register closePopup={this.togglePopup.bind(this)} />
+                        ) : null}
+                    </div>
+                </div>
+            </form>
         );
     }
 }
