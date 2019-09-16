@@ -21,6 +21,7 @@ export default class NavMenu extends React.Component {
   }
   render () {
       return (
+
         <view>
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
@@ -36,7 +37,7 @@ export default class NavMenu extends React.Component {
                   <NavLink tag={Link} className="text-dark" to="/Courses">Courses</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/logout">logout</NavLink>
+                  <NavLink tag={Link} className="text-dark" to="/logout">Logout</NavLink>
                 </NavItem>
               </ul>
             </Collapse>

@@ -10,6 +10,8 @@ using LionUp.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Email.Services;
+using LionUp.Models;
 
 namespace LionUp
 {
@@ -25,6 +27,10 @@ namespace LionUp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<User>(Configuration.GetSection("Email"));
+
+            services.AddTransient<IEmailService, EmailService>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {
