@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Menu, Container, Button } from "semantic-ui-react";
-import "./Home.css";
+import "./Home/Home.css";
 import { NavLink } from "react-router-dom";
 
 class Nav extends Component {
@@ -10,8 +10,10 @@ class Nav extends Component {
         <Container>
           <Menu.Item header>
             <img src="/assets/logo.png" alt="logo" />
-            Home
           </Menu.Item>
+          <NavLink to="/home" exact>
+            <Menu.Item name="Home" />
+          </NavLink>
           <NavLink to="/event" exact>
             <Menu.Item name="Events" />
           </NavLink>

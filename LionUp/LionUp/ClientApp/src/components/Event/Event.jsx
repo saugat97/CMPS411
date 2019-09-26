@@ -1,6 +1,6 @@
 /// <reference path="../home/home.jsx" />
 import React, { Component } from "react";
-import Home from "../Home/Home.jsx";
+import Nav from "../Nav";
 
 
 class Event extends Component {
@@ -8,7 +8,7 @@ class Event extends Component {
       return (
           <view>
           <div>This is Event</div>
-              <div><Home /></div>
+              <Nav/>
               </view>
               )
     };
