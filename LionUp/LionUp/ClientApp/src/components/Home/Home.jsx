@@ -7,7 +7,7 @@ import "./Home.css";
 class Home extends Component {
     render() {
         if (this.props.loggedIn === false) {
-            
+            alert("Unauthorized: You need to log in first!");
             this.props.history.push('/');
         }
         
