@@ -136,7 +136,7 @@ class EventDashboard extends Component {
 
     render() {
         if (this.props.loggedIn === false) {
-            alert("Unauthorized: You need to log in first!");
+            
             this.props.history.push('/');
         }
     const { events, isOpen, selectedEvent } = this.state;
