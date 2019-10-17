@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace LionUp.Controllers
@@ -33,6 +34,8 @@ namespace LionUp.Controllers
             _environment = environment;
         }
 
+
+
         [HttpPost("register")]
         public IActionResult Register(User model)
         {
@@ -41,16 +44,11 @@ namespace LionUp.Controllers
                 return BadRequest();
             }
 
-            var user = new User
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                SeluEmail = model.SeluEmail,
-                Password = model.Password,
-                MajorId = 1,
-                RoleId = 1
-            };
-            _context.User.Add(user);
+            model.Password = HashPassword(model.Password);
+            model.MajorId = 1;
+            model.UserRole = "Student";
+
+            _context.User.Add(model);
             _context.SaveChanges();
 
             var projectRootPath = _environment.WebRootPath;
@@ -97,33 +95,77 @@ namespace LionUp.Controllers
             }
 
             var user = _context.User.SingleOrDefault(u => u.SeluEmail == model.Email);
-            
 
-            if(user!= null)
+
+            if (user != null)
             {
+                if (!ValidateUser(user, model.Password))
+                {
+                    return Unauthorized();
+                }
+                else
+                {
 
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey2019"));
-                var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256Signature);
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey2019"));
+                    var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256Signature);
 
-                var token = new JwtSecurityToken(
-                        issuer: "mysite.com",
-                        audience: "mysite.com",
-                        claims: new Claim[] {
-                            new Claim(ClaimTypes.Email, user.SeluEmail)
-                        },
-                        expires: DateTime.Now.AddMinutes(10),
-                        signingCredentials: signingCredentials
-                    );
+                    var token = new JwtSecurityToken(
+                            issuer: "mysite.com",
+                            audience: "mysite.com",
+                            claims: new Claim[] {
+                                new Claim(ClaimTypes.Email, user.SeluEmail)
+                            },
+                            expires: DateTime.Now.AddMinutes(10),
+                            signingCredentials: signingCredentials
+                        );
 
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-                return Ok(new { Token = tokenString });
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+                    return Ok(new { Token = tokenString });
+                }
             }
-
             else
             {
                 return Unauthorized();
             }
 
+        }
+
+        [NonAction]
+        public string HashPassword(string password)
+        {
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            var bytes = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = bytes.GetBytes(20);
+            byte[] hashBytes = new byte[36];
+
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            return Convert.ToBase64String(hashBytes);
+        }
+
+        [NonAction]
+        public bool ValidateUser(User user, string password)
+        {
+            byte[] salt = new byte[16];
+
+            byte[] hashBytes = Convert.FromBase64String(user.Password);
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            var bytes = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = bytes.GetBytes(20);
+
+            for (int i = 0; i < 20; ++i)
+            {
+                if (hashBytes[i + 16] != hash[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

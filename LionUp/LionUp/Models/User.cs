@@ -19,11 +19,10 @@ namespace LionUp.Models
         public string LastName { get; set; }
         public string SeluEmail { get; set; }
         public string Password { get; set; }
-        public int RoleId { get; set; }
+        public string UserRole { get; set; }
         public int MajorId { get; set; }
 
         public virtual Major Major { get; set; }
-        public virtual UserRole Role { get; set; }
         public virtual ICollection<CourseDiscussionBoard> CourseDiscussionBoard { get; set; }
         public virtual ICollection<CourseDiscussionComment> CourseDiscussionComment { get; set; }
         public virtual ICollection<Event> Event { get; set; }
