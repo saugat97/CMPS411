@@ -23,9 +23,7 @@ namespace LionUp.Data
         public virtual DbSet<EventDiscussion> EventDiscussion { get; set; }
         public virtual DbSet<EventResponse> EventResponse { get; set; }
         public virtual DbSet<Major> Major { get; set; }
-        public virtual DbSet<Semester> Semester { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserRole> UserRole { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -57,11 +55,7 @@ namespace LionUp.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Major_ToMajorTable");
 
-                entity.HasOne(d => d.Semester)
-                    .WithMany(p => p.Course)
-                    .HasForeignKey(d => d.SemesterId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Semester");
+         
             });
 
             modelBuilder.Entity<CourseDiscussionBoard>(entity =>
@@ -175,16 +169,7 @@ namespace LionUp.Data
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Semester>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Semester1)
-                    .IsRequired()
-                    .HasColumnName("Semester")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-            });
+           
 
             modelBuilder.Entity<User>(entity =>
             {
@@ -210,25 +195,6 @@ namespace LionUp.Data
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.MajorId)
                     .HasConstraintName("FK_Major");
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.User)
-                    .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK_UserRole");
-            });
-
-            modelBuilder.Entity<UserRole>(entity =>
-            {
-                entity.HasIndex(e => e.Role)
-                    .HasName("UQ__UserRole__DA15413E9E13B0AD")
-                    .IsUnique();
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Role)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
             });
         }
     }

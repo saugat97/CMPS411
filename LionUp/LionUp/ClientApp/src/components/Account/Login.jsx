@@ -5,7 +5,9 @@ import Register from "./Register";
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = { showPopup: false };
+        this.state = {
+            showPopup: false
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -24,37 +26,45 @@ class Login extends Component {
             dataJson[key] = value;
         }
 
-        
         fetch('api/Account/Login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(dataJson)
-        }).then(response => response.json()
-        ).then(resData => {
-            localStorage.setItem("jwt", resData.token);
-            this.props.history.push('/home');
         })
-            .catch(err => {
-                console.log(err);
+        .then(response => response.json()
+        )
+        .then(resData => {
+            localStorage.setItem("jwt", resData.token);
+            this.props.logIn();
+            if (resData.token != null) {
+                this.props.history.push('/home');
+            }
+            else {
                 alert("Username or password is incorrect.");
-            });
+            }
+        }).catch(err => {
+            console.log(err);
+            alert("Username or password is incorrect.");
+        });
     }
 
+   
+
     render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
+           return (
+           <form onSubmit={this.handleSubmit}>
                 <div>
                     <div className="bg"></div>
 
                     <div className="form">
                         <div className="form-title">
                             Login
-            <div className="form-subtitle">
+                            <div className="form-subtitle">
                                 Login to continue using Lion Up App.
-            </div>
+                            </div>
                         </div>
                         <div className="form-content">
                             <input type="email" name="email" placeholder="firstname.lastname@selu.edu" required />
@@ -65,7 +75,7 @@ class Login extends Component {
                         <div className="form-btn">
                             <button className="button" type="submit">
                                 Login
-            </button>
+                            </button>
                         </div>
 
                         <button
@@ -74,7 +84,7 @@ class Login extends Component {
                         >
                             {" "}
                             Click here to Register ->
-          </button>
+                        </button>
                         {this.state.showPopup ? (
                             <Register closePopup={this.togglePopup.bind(this)} />
                         ) : null}

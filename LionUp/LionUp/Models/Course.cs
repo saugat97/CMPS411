@@ -14,10 +14,10 @@ namespace LionUp.Models
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public int MajorId { get; set; }
-        public int SemesterId { get; set; }
+     
 
         public virtual Major Major { get; set; }
-        public virtual Semester Semester { get; set; }
+  
         public virtual ICollection<CourseDiscussionBoard> CourseDiscussionBoard { get; set; }
     }
 }

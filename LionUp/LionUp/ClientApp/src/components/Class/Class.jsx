@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Nav from "../Nav";
 import Select from "react-select";
-import { Grid, Button, Container, Segment, Card } from "semantic-ui-react";
+import { Grid, Container} from "semantic-ui-react";
 import "./class.css";
 
 const Major = [
@@ -13,10 +13,14 @@ const Major = [
 ];
 
 class Class extends Component {
-  render() {
+    render() {
+        if (this.props.loggedIn === false) {
+            alert("Unauthorized: You need to log in first!");
+            this.props.history.push('/');
+        }
     return (
       <Fragment>
-        <Nav />
+        <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
         <Container className="main">
           <Grid>
             <Grid.Column width={3}></Grid.Column>

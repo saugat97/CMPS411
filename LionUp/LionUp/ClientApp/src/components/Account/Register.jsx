@@ -10,55 +10,7 @@ const Major = [
     ];
 
 class Register extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            fields: {}
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleRegister = this.handleRegister.bind(this);
-        this.submitRegistrationForm = this.submitRegistrationForm.bind(this);
-    }
-
-    handleChange(e) {
-        let fields = this.state.fields;
-        fields[e.target.name] = e.target.value;
-        this.setState({
-            fields
-        });
-    }
-
-    submitRegistrationForm(e) {
-        e.preventDefault();
-        
-        this.handleRegister(e);
-    }
-
-    handleRegister(event) {
-        event.preventDefault();
-
-        const data = new FormData(event.target);
-        let dataJson = {};
-
-        for (const [key, value] of data.entries()) {
-            dataJson[key] = value;
-        }
-        fetch('api/Account/Register', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(dataJson)
-        }).then(res => {
-            return res.json();
-            
-        })
-        alert("Account created successfully");
-    }
-
-    render() {
+      render() {
         return (
             <form onSubmit={this.submitRegistrationForm}>
             <div className="popup">
