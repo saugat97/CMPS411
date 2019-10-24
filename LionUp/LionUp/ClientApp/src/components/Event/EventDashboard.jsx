@@ -5,9 +5,11 @@ import { Grid, GridColumn, Container, Button } from "semantic-ui-react";
 import EventForm from "./EventForm";
 import "./Event.css";
 import EventList from "./EventList";
+import jwt_decode from 'jwt-decode';
 
 const eventsFromDashboard = [
-  {
+
+    {
     id: "1",
     title: "Women in Technology General Meeting",
     date: "2019-09-30",
@@ -102,7 +104,7 @@ const eventsFromDashboard = [
 ];
 
 class EventDashboard extends Component {
-  state = {
+    state = {
     events: eventsFromDashboard,
     isOpen: true,
     selectedEvent: null
@@ -132,7 +134,9 @@ class EventDashboard extends Component {
     this.setState({
       isOpen: false
     });
-  };
+    };
+
+   
 
     render() {
         if (this.props.loggedIn === false) {
