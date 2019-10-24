@@ -156,6 +156,7 @@ class EventDashboard extends Component {
         const { events, isOpen, selectedEvent } = this.state;
         return (
             <Container className="main">
+                <div className="title">Events</div>
                 <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
                 <Grid>
                     <GridColumn width={10}>
