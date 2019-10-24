@@ -1,4 +1,4 @@
-wimport React, { Fragment } from "react";
+import React, { Fragment } from "react";
 import Login from "./components/Account/Login.jsx";
 import Register from "./components/Account/Register.jsx";
 import Home from "./components/Home/Home";
