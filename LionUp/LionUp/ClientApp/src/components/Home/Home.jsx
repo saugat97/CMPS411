@@ -217,9 +217,7 @@ class Home extends Component {
                                     />
                                 </a>
                             </div>
-                            <div>
-                                Hello logged in from {user.seluEmail}
-                             </div>
+                            
                         </Grid.Column>
                     </Grid>
                 </Container>

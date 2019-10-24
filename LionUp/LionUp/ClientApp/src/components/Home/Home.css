@@ -4,6 +4,14 @@ body {
   margin-top: 20px;
 }
 
+
+.ui.fixed.menu, .ui[class*="top fixed"].menu {
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: 826px;
+}
+
 .ui.menu .item {
   position: relative;
   vertical-align: middle;

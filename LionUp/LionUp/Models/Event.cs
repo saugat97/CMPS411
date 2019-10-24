@@ -18,6 +18,8 @@ namespace LionUp.Models
         public DateTime StartTime { get; set; } 
         public DateTime EndTime { get; set; }
         public string Location { get; set; }
+        public string hostedBy { get; set; }
+        public string hostPhotoURL { get; set; }
         public bool IsActive { get; set; }
 
         public virtual User User { get; set; }

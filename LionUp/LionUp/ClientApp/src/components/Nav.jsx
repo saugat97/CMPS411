@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Menu, Container, Button } from "semantic-ui-react";
+import { Menu, Container, Button, Dropdown } from "semantic-ui-react";
 import "./Home/Home.css";
 import { NavLink } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-
 
 class Nav extends Component {
     constructor(props) {
@@ -34,6 +33,7 @@ class Nav extends Component {
         //}
     }
 
+
     getUser = () => {
         const token = localStorage.getItem("jwt");
         const decoded = jwt_decode(token);
@@ -59,13 +59,14 @@ class Nav extends Component {
 
 
     render() {
-        return ( 
+        return (
             <Menu inverted fixed="top">
                 <Container>
+                    <NavLink to="/home" exact >
                     <Menu.Item header>
-                        <img src="/assets/logo.png" alt="logo" />
+                        <img src="/assets/logo.png" alt="logo" /> 
                     </Menu.Item >
-
+                    </NavLink>
                     <NavLink to="/home" exact>
                         <Menu.Item name="Home" />
                     </NavLink>
@@ -78,23 +79,20 @@ class Nav extends Component {
                     <NavLink to="/class" exact>
                         <Menu.Item name="Classes" />
                     </NavLink>
-                    
-                    
+
                     <Menu.Item position="right">
-                        <Button basic
-                            inverted content={this.state.user.seluEmail}
-                            style={{ width: "100%" }}
-                        />
-                        {/* <Button basic inverted content="Login" /> */}
-                            <Button
-                            onClick={this.handleLogout}
-                            basic
-                            inverted
-                            content="Log Out"
-                            style={{ width: "100%" }}
-                            />
-                        
-                    </Menu.Item>
+                        <NavLink to="/profile" exact>
+                            <Menu.Item content={this.state.user.seluEmail} />
+                        </NavLink>
+                                    <Button
+                                    onClick={this.handleLogout}
+                                    basic
+                                    inverted
+                                    content="Log Out"
+                                    style={{ width: "100%" }}
+                                    />
+                                    
+                                           </Menu.Item>
                 </Container>
             </Menu>
         );

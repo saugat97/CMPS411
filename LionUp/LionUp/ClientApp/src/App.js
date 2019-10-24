@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import Event from "./components/Event/EventDashboard";
 import Class from "./components/Class/Class";
 import { withRouter, Route } from "react-router-dom";
+import User from "./components/Account/User.jsx"
 
 export class App extends React.Component {
   constructor(props) {
@@ -61,7 +62,19 @@ export class App extends React.Component {
               logOut={() => this.updateState()}
             />
           )}
-        />
+            />
+
+            <Route
+                path="/profile"
+                render={routeProps => (
+                    <User
+                        {...routeProps}
+                        loggedIn={this.state.loggedIn}
+                        logOut={() => this.updateState()}
+                    />
+                )}
+            />
+        
 
         <Route
           path="/event"
