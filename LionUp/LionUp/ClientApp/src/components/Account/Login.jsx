@@ -54,6 +54,11 @@ class Login extends Component {
    
 
     render() {
+
+        if (this.props.loggedIn === true) {
+            this.props.history.push('/home');
+        }
+
            return (
            <form onSubmit={this.handleSubmit}>
                 <div>
