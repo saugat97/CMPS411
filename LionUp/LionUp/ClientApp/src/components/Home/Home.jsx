@@ -5,9 +5,16 @@ import "react-twitter-widgets";
 import "./Home.css";
 
 class Home extends Component {
+   
+    componentDidMount(){
+        window.twttr.widgets.load();
+           
+    }
+   
+    
     render() {
+       
         if (this.props.loggedIn === false) {
-            alert("Unauthorized: You need to log in first!");
             this.props.history.push('/');
         }
         
@@ -74,11 +81,7 @@ class Home extends Component {
                                         href="https://twitter.com/oursoutheastern?ref_src=twsrc%5Etfw">
 
                                     </a>
-                                    <script
-                                        async
-                                        src="https://platform.twitter.com/widgets.js"
-                                        charset="utf-8"
-                                    ></script>
+                                    
                                 </div>
                             </Card>
                         </Grid.Column>

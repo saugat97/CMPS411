@@ -40,7 +40,7 @@ class Login extends Component {
             localStorage.setItem("jwt", resData.token);
             this.props.logIn();
             if (resData.token != null) {
-                this.props.history.push('/event');
+                this.props.history.push('/home');
             }
             else {
                 alert("Username or password is incorrect.");
