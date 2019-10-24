@@ -9,6 +9,16 @@ const Major = [
 ];
 
 class Register extends Component {
+    constructor(props){
+        super(props);
+
+        this.handleredirecttoLogin= this.handleredirecttoLogin.bind(this);
+    }
+
+    handleredirecttoLogin(){
+        this.props.history.push('./');
+    };
+
   render() {
     return (
       <div>
@@ -62,10 +72,10 @@ class Register extends Component {
                   Register
                 </button>
                 <button
-                  className="button button-cancel"
-                  onClick={this.props.closePopup}
+                  className="button"
+                  onClick={this.handleredirecttoLogin}
                 >
-                  Cancel
+                  Back to Login
                 </button>
               </div>
             </div>
