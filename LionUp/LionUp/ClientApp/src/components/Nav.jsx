@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Menu, Container, Button } from "semantic-ui-react";
 import "./Home/Home.css";
 import { NavLink } from "react-router-dom";
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
+
 
 class Nav extends Component {
     constructor(props) {
@@ -9,9 +12,12 @@ class Nav extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            user: []
         };
         this.handleLogout = this.handleLogout.bind(this);
+        this.getUser = this.getUser.bind(this);
+        this.getUser();
     }
 
     toggle() {
@@ -27,6 +33,30 @@ class Nav extends Component {
         //    this.props.history.push('/');
         //}
     }
+
+    getUser = () => {
+        const token = localStorage.getItem("jwt");
+        const decoded = jwt_decode(token);
+        const seluEmail = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+
+        axios({
+            method: 'POST',
+            url: '/api/account/getUserByEmail',
+            data: {
+                seluEmail: seluEmail
+            }
+        })
+            .then((response) => {
+
+                console.log(response);
+                this.setState({
+                    user: response.data
+                });
+            }, (error) => {
+                console.log(error);
+            });
+    }
+
 
     render() {
         return ( 
@@ -48,9 +78,13 @@ class Nav extends Component {
                     <NavLink to="/class" exact>
                         <Menu.Item name="Classes" />
                     </NavLink>
-
+                    
+                    
                     <Menu.Item position="right">
-                        
+                        <Button basic
+                            inverted content={this.state.user.seluEmail}
+                            style={{ width: "100%" }}
+                        />
                         {/* <Button basic inverted content="Login" /> */}
                             <Button
                             onClick={this.handleLogout}

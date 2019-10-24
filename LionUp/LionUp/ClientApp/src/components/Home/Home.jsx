@@ -4,48 +4,19 @@ import { Grid, Container, Card } from "semantic-ui-react";
 import "react-twitter-widgets";
 import "./Home.css";
 import jwt_decode from 'jwt-decode';
-//import axios from 'axios';
+import axios from 'axios';
 
 class Home extends Component {
-
     constructor(props) {
         super(props);
 
-        this.state = {
-            error: null,
-            isLoaded: false,
-            items: [],
-            email:null
-        };
         this.getUser = this.getUser.bind(this);
-      ////  this.fetchMethod = this.fetchMethod.bind(this);
+
+        this.state = {
+            user : []
+        };
 
         this.getUser();
-        
-     //   this.fetchMethod();
-    }
-
-    componentDidMount() {
-        
-        fetch("api/account")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: result.items
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
     }
 
     getUser = () => {
@@ -53,14 +24,44 @@ class Home extends Component {
         const decoded = jwt_decode(token);
         const seluEmail = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
 
-        this.setState({
-            email: seluEmail
-        });
+        axios({
+            method: 'POST',
+            url: '/api/account/getUserByEmail',
+            data: {
+                seluEmail: seluEmail
+            }
+        })
+            .then((response) => {
+                
+                console.log(response);
+                this.setState({
+                    user: response.data
+                });
+            }, (error) => {
+                console.log(error);
+            });
     }
 
-    //checkEmail = () => {
-    //    if (items.seluEmail == email)
-    //        return email;
+    //componentDidMount() {
+    //    fetch('api/account')
+    //        .then(res => res.json())
+    //        .then(
+    //            (result) => {
+    //                this.setState({
+    //                    isLoaded: true,
+    //                    items: result.items
+    //                });
+    //            },
+    //             Note: it's important to handle errors here
+    //             instead of a catch() block so that we don't swallow
+    //             exceptions from actual bugs in components.
+    //            (error) => {
+    //                this.setState({
+    //                    isLoaded: true,
+    //                    error
+    //                });
+    //            }
+    //        )
     //}
 
     //getUser = () => {
@@ -68,34 +69,27 @@ class Home extends Component {
     //    const decoded = jwt_decode(token);
     //    const seluEmail = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
 
-    //    const options = {
-    //        method: 'post',
-    //        headers: {
-    //            'Accept': 'application/json, text/plain, */*',
-    //            'Content-Type': 'application/json'
-    //        },
-    //        body: JSON.stringify(seluEmail)
-
-    //    }
-    //    fetch('api/account/getUserByEmail', options)
-    //        .then(response => {
-
-    //            if (response.ok) {
-    //                return response.json();
-    //            } else {
-    //                throw new Error('Something went wrong ...');
-    //            }
-    //        })
-    //        .then(data => this.setState({ user: data.user }))
-    //        .catch(error => this.setState({ error }));
-        
+    //    this.setState({
+    //        email: seluEmail
+    //    });
     //}
+
+    //checkEmail = () => {
+    //    if (items.seluEmail == email)
+    //        return email;
+    //}
+
+    componentDidMount() {
+        window.twttr.widgets.load();
+    }
    
     render() {  
         if (this.props.loggedIn === false) {
             this.props.history.push('/');
         }
+        const { user } = this.state;
         return (
+          
             <Fragment>
                 <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
                 <Container className="main">
@@ -223,6 +217,9 @@ class Home extends Component {
                                     />
                                 </a>
                             </div>
+                            <div>
+                                Hello logged in from {user.seluEmail}
+                             </div>
                         </Grid.Column>
                     </Grid>
                 </Container>
