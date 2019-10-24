@@ -3,13 +3,48 @@ import Nav from "../Nav";
 import { Grid, Container, Card } from "semantic-ui-react";
 import "react-twitter-widgets";
 import "./Home.css";
+//import jwt_decode from 'jwt-decode';
+//import axios from 'axios';
 
 class Home extends Component {
+    //constructor(props) {
+    //    super(props);
+    //    this.state = {
+    //        userId: []
+    //    }
+
+    //    this.getUserId = this.getUserId.bind(this);
+
+    //    const token = localStorage.getItem("jwt");
+    //    const decoded = jwt_decode(token);
+    //    const seluEmail = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+
+    //    this.getUserId(seluEmail);
+    //}
+
+    //getUserId = (seluEmail) => {
+    //    debugger
+    //    fetch('api/account/getUserByEmail', {
+    //        method: 'POST',
+    //        headers: {
+    //            "Accept": "application/json",
+    //            "Content-Type": "application/json",
+    //            "Accept":'*/*'
+    //        },
+    //        body: JSON.stringify(seluEmail)
+    //    }).then((response) => response.json()
+    //    ).then(resData => {
+    //        console.log('Print', resData);
+    //        userId: resData
+    //    }).catch(error => console.log(error));
+    //};
+   
+
     render() {
         if (this.props.loggedIn === false) {
-            alert("Unauthorized: You need to log in first!");
             this.props.history.push('/');
         }
+     
         
         return (
             <Fragment>
