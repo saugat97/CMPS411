@@ -34,6 +34,12 @@ namespace LionUp.Controllers
             _environment = environment;
         }
 
+        // GET: api/Users
+        [HttpGet]
+        public List<User> GetUsers()
+        {
+            return _context.User.ToList();
+        }
 
 
         [HttpPost("register")]
@@ -79,6 +85,27 @@ namespace LionUp.Controllers
             _emailService.SendEmail(model.SeluEmail, subject, messageBody);
 
             return Ok(model);
+        }
+
+        [HttpPost("email")]
+        public int Email([FromBody] EmailCheckViewModel model)
+        {
+            var user = _context.User.SingleOrDefault(e => e.SeluEmail == model.SeluEmail);
+            return user.Id;
+        }
+
+        [HttpPost("getUserByEmail")]
+        public User GetUserByEmail([FromBody] EmailCheckViewModel model)
+        {
+            var getUser = _context.User.FirstOrDefault(a => a.SeluEmail == model.SeluEmail);
+            return getUser;
+        }
+
+        [HttpGet("{id}")]
+        public User GetUserById(int? id)
+        {
+            var user = _context.User.FirstOrDefault(b => b.Id == id);
+            return user;
         }
 
         [HttpPost("login")]
@@ -129,6 +156,8 @@ namespace LionUp.Controllers
             }
 
         }
+
+       
 
         [NonAction]
         public string HashPassword(string password)

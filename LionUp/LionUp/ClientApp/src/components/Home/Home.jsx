@@ -3,6 +3,8 @@ import Nav from "../Nav";
 import { Grid, Container, Card } from "semantic-ui-react";
 import "react-twitter-widgets";
 import "./Home.css";
+//import jwt_decode from 'jwt-decode';
+//import axios from 'axios';
 
 class Home extends Component {
    
@@ -11,12 +13,13 @@ class Home extends Component {
            
     }
    
-    
+
     render() {
        
         if (this.props.loggedIn === false) {
             this.props.history.push('/');
         }
+     
         
         return (
             <Fragment>
