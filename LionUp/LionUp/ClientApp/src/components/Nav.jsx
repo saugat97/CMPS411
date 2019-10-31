@@ -80,6 +80,10 @@ class Nav extends Component {
                         <Menu.Item name="Classes" />
                     </NavLink>
 
+                    <NavLink to="/Chat" exact>
+                        <Menu.Item name="Chat" />
+                    </NavLink>
+
                     <Menu.Item position="right">
                         <NavLink to="/profile" exact>
                             <Menu.Item content={this.state.user.seluEmail} />

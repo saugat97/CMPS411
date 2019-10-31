@@ -1,4 +1,3 @@
-/// <reference path="../home/home.jsx" />
 import React, { Component } from "react";
 import Nav from "../Nav";
 import { Grid, GridColumn, Container, Button } from "semantic-ui-react";
