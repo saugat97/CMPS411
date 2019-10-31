@@ -17,10 +17,7 @@ export default function Login(props) {
       </div>
       <div className="Login__button" onClick={() => login('Saugat', 'Zack')}>
          <b>Zack</b>
-      </div>
-        {/*<div className="Login__button" onClick={() => login(app.chatkit.otherUserId.name)}>*/}
-            {/*<b>{userId}</b>*/}
-        {/*</div>*/}
+      </div>     
         {/*<div className="Login__button" onClick={() => login(userId, otherUserId)}>*/}
         {/*    Log in as <b>Unknown</b>*/}
         {/*</div>*/}

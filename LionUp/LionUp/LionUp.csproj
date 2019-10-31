@@ -31,8 +31,6 @@
   <ItemGroup>
     <None Remove="ClientApp\src\Chat.css" />
     <None Remove="ClientApp\src\Chat.js" />
-    <None Remove="ClientApp\src\index.css" />
-    <None Remove="ClientApp\src\index.js" />
     <None Remove="ClientApp\src\Login.css" />
     <None Remove="ClientApp\src\Login.js" />
     <None Remove="ClientApp\src\UserList.css" />

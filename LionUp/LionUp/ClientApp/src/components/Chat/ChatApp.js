@@ -5,8 +5,6 @@ import './ChatApp.css';
 import Chat from './Chat';
 import UserList from './UserList';
 import Login from './Login';
-import selu from './selu.png';
-//import chatkitLogo from './chatkit-logo.svg';
 import Nav from "../Nav";
 
 
