@@ -23,23 +23,26 @@ class Home extends Component {
         const token = localStorage.getItem("jwt");
         const decoded = jwt_decode(token);
         const seluEmail = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+        
+            axios({
+                method: 'POST',
+                url: '/api/account/getUserByEmail',
+                data: {
+                    seluEmail: seluEmail
+                }
+            })
+                .then((response) => {
 
-        axios({
-            method: 'POST',
-            url: '/api/account/getUserByEmail',
-            data: {
-                seluEmail: seluEmail
-            }
-        })
-            .then((response) => {
-                
-                console.log(response);
-                this.setState({
-                    user: response.data
+                    console.log(response);
+                    this.setState({
+                        user: response.data
+                    });
+                }, (error) => {
+                    console.log(error);
                 });
-            }, (error) => {
-                console.log(error);
-            });
+        
+        
+       
     }
 
     //componentDidMount() {

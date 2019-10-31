@@ -42,7 +42,8 @@ class Login extends Component {
         if (resData.token != null) {
           this.props.history.push("/home");
         } else {
-          alert("Username or password is incorrect.");
+            alert("Username or password is incorrect.");
+            this.props.history.push('/');
         }
       })
       .catch(err => {
@@ -56,10 +57,7 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.loggedIn === true) {
-      this.props.history.push("/home");
-    }
-
+   
     return (
       <form onSubmit={this.handleSubmit}>
         <div>

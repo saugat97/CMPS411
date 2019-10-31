@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import Nav from "../Nav";
 import Select from "react-select";
-import { Grid, Container} from "semantic-ui-react";
+import { Grid, Container } from "semantic-ui-react";
 import "./class.css";
+
 
 const CS1 = [
   { label: "CMPS 161", value: 1 },
@@ -41,54 +42,56 @@ const Math2 = [
     { label: "MATH 380", value: 4 },
     { label: "MATH 417", value: 4 },
     { label: "MATH 441", value: 5 }
+
 ];
 
 class Class extends Component {
     render() {
+        debugger
         if (this.props.loggedIn === false) {
             alert("Unauthorized: You need to log in first!");
             this.props.history.push('/');
         }
-    return (
+
+           
+                return(
       <Fragment>
-        <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
-            <Container className="main">
-                <div className="title">Class Discussion Thread</div>
-                <Grid>
-                    <p>Please select the class to join the discussion thread</p>
-                    <Grid.Column width={4}></Grid.Column>
-                    
-                    <Grid.Column width={5}>
-                        <p className="major-title">Computer Science</p>
-                        <p>Class level 100-200</p>
-                           <div className="form-major">
-                         <Select className="select" options={CS1} />
-                        </div>
-                        <p>Class level 300-400</p>
-                        <div className="form-major">
-                            <Select className="select" options={CS2} />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={5}>
-                        <p className="major-title">Mathematics</p>
-                        <p>Class level 100-200</p>
-                        <div className="form-major">
-                            <Select className="select" options={Math1} />
-                        </div>
-                        <p>Class level 300-400</p>
-                        <div className="form-major">
-                            <Select className="select" options={Math2} />
-                        </div>
-                    </Grid.Column>
+            <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
+            <Container className="main">                                                   
+                        <div className="title">Class Discussion Thread</div>
+                        <Grid>
+                            <p>Please select the class to join the discussion thread</p>
+                            <Grid.Column width={4}></Grid.Column>
 
-                   
+                            <Grid.Column width={5}>
+                                <p className="major-title">Computer Science</p>
+                                <p>Class level 100-200</p>
+                                <div className="form-major">
+                                    <Select className="select" options={CS1} />
+                                </div>
+                                <p>Class level 300-400</p>
+                                <div className="form-major">
+                                    <Select className="select" options={CS2} />
+                                </div>
+                                </Grid.Column>
 
-            <Grid.Column width={2}></Grid.Column>
+                            <Grid.Column width={5}>
+                                <p className="major-title">Mathematics</p>
+                                <p>Class level 100-200</p>
+                                <div className="form-major">
+                                    <Select className="select" options={Math1} />
+                                </div>
+                                <p>Class level 300-400</p>
+                                <div className="form-major">
+                                    <Select className="select" options={Math2} />
+                                </div>
+                            </Grid.Column>
+
+                      <Grid.Column width={2}></Grid.Column>
+
           </Grid>
         </Container>
       </Fragment>
     );
-  }
-}
-
-export default Class;
+  }       
+    export default Class;

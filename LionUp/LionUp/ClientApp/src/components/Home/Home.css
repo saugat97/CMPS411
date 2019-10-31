@@ -2,14 +2,12 @@ body {
   font-family: "Josefin Sans", sans-serif;
   font-size: 26px;
   
-}
-
 
 .ui.fixed.menu, .ui[class*="top fixed"].menu {
     top: 0;
     left: 0;
     right: auto;
-    bottom: 826px;
+    bottom: 922px;
 }
 
 .ui.menu .item {

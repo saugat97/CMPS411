@@ -11,40 +11,6 @@ import cuid from "cuid";
 const eventsFromDashboard = [
 
     {
-        id: "1",
-        title: "Women in Technology General Meeting",
-        date: "2019-09-30",
-        category: "Wit",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
-        city: "Hammond, LA",
-        venue: "Fayard 123",
-        hostedBy: "WIT",
-        hostPhotoURL: "https://randomuser.me/api/portraits/women/26.jpg",
-        attendees: [
-            {
-                id: "b",
-                name: "Tom",
-                photoURL: "https://randomuser.me/api/portraits/men/22.jpg"
-            },
-            {
-                id: "c",
-                name: "Harry",
-                photoURL: "https://randomuser.me/api/portraits/women/22.jpg"
-            },
-            {
-                id: "d",
-                name: "Harry",
-                photoURL: "https://randomuser.me/api/portraits/women/20.jpg"
-            },
-            {
-                id: "e",
-                name: "Harry",
-                photoURL: "https://randomuser.me/api/portraits/women/26.jpg"
-            }
-        ]
-    },
-    {
         id: "2",
         title: "Homecoming Week",
         date: "2019-10-07",
@@ -54,12 +20,12 @@ const eventsFromDashboard = [
         city: "Hammond, LA",
         venue: "Southeastern Louisiana University",
         hostedBy: "SoutheasternCAB",
-        hostPhotoURL: "https://randomuser.me/api/portraits/men/10.jpg",
+        hostPhotoURL: "../../../assets/user.png",
         attendees: [
             {
                 id: "a",
                 name: "Bob",
-                photoURL: "https://randomuser.me/api/portraits/women/26.jpg"
+                photoURL: "../../../assets/user.png"
             }
         ]
     },
@@ -73,34 +39,15 @@ const eventsFromDashboard = [
         city: "Hammond, LA",
         venue: "Visual Art + Design Building",
         hostedBy: "Department of Visual Arts+Design",
-        hostPhotoURL: "https://randomuser.me/api/portraits/women/26.jpg",
+        hostPhotoURL: "../../../assets/user.png",
         attendees: [
             {
                 id: "b",
                 name: "Tom",
-                photoURL: "https://randomuser.me/api/portraits/men/22.jpg"
+                photoURL: "../../../assets/user.png"
             }
         ]
-    },
-    {
-        id: "4",
-        title: "Career Fair 2019",
-        date: "2019-09-19",
-        category: "Profession",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
-        city: "Hammond, LA",
-        venue: "Pennington Center",
-        hostedBy: "Career Services",
-        hostPhotoURL: "https://randomuser.me/api/portraits/men/16.jpg",
-        attendees: [
-            {
-                id: "a",
-                name: "Bob",
-                photoURL: "https://randomuser.me/api/portraits/women/26.jpg"
-            }
-        ]
-    },
+    }
 
 ];
 
@@ -113,6 +60,7 @@ class EventDashboard extends Component {
 
     handleCreateEvent = newEvent => {
         newEvent.id = cuid();
+        newEvent.hostPhotoURL = "../../../assets/user.png"
         //newEvent.hostPhotoURL = 
         this.setState(({ events }) => ({
             events: [...events, newEvent],
@@ -146,6 +94,22 @@ class EventDashboard extends Component {
         });
     };
 
+    handleUpdateEvent = updatedEvent => {
+        this.setState(({ events }) => ({
+            events: events.map(event => {
+                if (event.id === updatedEvent.id) {
+                    return { ...updatedEvent };
+
+                }
+                else {
+                    return event;
+                }
+            }),
+            isOpen: false,
+            selectedEvent: null
+        }));
+    };
+
 
 
     render() {
@@ -155,6 +119,7 @@ class EventDashboard extends Component {
         }
         const { events, isOpen, selectedEvent } = this.state;
         return (
+            <div className="main-content">
             <Container className="main">
                 <div className="title">Events</div>
                 <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
@@ -174,7 +139,8 @@ class EventDashboard extends Component {
                         />
                         {isOpen && (
                             <EventForm
-                                key={selectedEvent ? selectedEvent.id : 0}
+                                    key={selectedEvent ? selectedEvent.id : 0}
+                                    updatedEvent={this.handleUpdateEvent}
                                 selectedEvent={selectedEvent}
                                 createEvent={this.handleCreateEvent}
                                 cancelForm={this.handleFormCancel}
@@ -183,7 +149,8 @@ class EventDashboard extends Component {
 
                     </GridColumn>
                 </Grid>
-            </Container>
+                </Container>
+                </div>
         );
     }
 }
