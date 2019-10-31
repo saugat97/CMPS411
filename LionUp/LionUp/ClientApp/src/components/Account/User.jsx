@@ -45,8 +45,11 @@ class User extends Component {
             <Fragment>
                 <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
                 <Container className="main">
+                    <img class="ui medium rounded image" className="user-img"
+                        src="https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png" />
+                  <div>  <button className="button">Edit Profile</button></div>
                     <div>
-                        This is my profile page,
+                        This is a profile page.
                         
                     </div>
                     <div>
@@ -56,7 +59,7 @@ class User extends Component {
                         Email: {this.state.user.seluEmail}
                     </div>
                     <div>
-                        (future sprints will include image uplaod, profile edit)
+                        (future sprints will include image upload, profile edit)
                     </div>
                 </Container>
             </Fragment>

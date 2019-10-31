@@ -5,6 +5,11 @@
     position: fixed;
 }
 
+.user-img{
+    height:200px;
+    width: auto;
+    margin: 20px;
+}
 
 .popup {
     position: fixed;
