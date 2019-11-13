@@ -103,12 +103,13 @@
 }
 
 .Chat__messages__message--other {
-  background: #fefefe;
+    background: #0041C2;
+    color: white;
 }
 
 .Chat__messages__message--self {
-  background: #2B814D;
-  color: #ffffff;
+    background: #E5E4E2;
+    color: black;
 }
 
 .Chat__messages__message__time {

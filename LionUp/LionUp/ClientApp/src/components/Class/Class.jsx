@@ -46,7 +46,7 @@ const Math2 = [
 
 class Class extends Component {
     render() {
-        debugger
+      
         if (this.props.loggedIn === false) {
             alert("Unauthorized: You need to log in first!");
             this.props.history.push('/');
