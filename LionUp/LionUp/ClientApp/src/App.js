@@ -4,12 +4,11 @@ import Register from "./components/Account/Register.jsx";
 import Home from "./components/Home/Home";
 import Event from "./components/Event/EventDashboard";
 import Class from "./components/Class/Class";
-import { withRouter, Route } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import User from "./components/Account/User.jsx";
-import ChatApp from "./components/Chat/ChatApp"
-
-
-
+import ChatApp from "./components/Chat/ChatApp";
+import EventDetailedPage from "./components/Event/EventDetailed/EventDetailedPage";
+import EventForm from "./components/Event/EventForm";
 
 export class App extends React.Component {
     constructor(props) {
@@ -94,8 +93,15 @@ export class App extends React.Component {
                             loggedIn={this.state.loggedIn}
                             logOut={() => this.updateState()}
                         />
+                       
+                           
+                       
+
                     )}
                 />
+
+                <Route path="/events/:id" component={EventDetailedPage} />
+                <Route path={["/createEvent", "/manage/:id"]} component={EventForm} />
 
                 <Route
                     path="/Chat"

@@ -46,7 +46,7 @@ class User extends Component {
                 <Nav loggedIn={this.props.loggedIn} logOut={this.props.logOut} />
                 <Container className="main">
                     <img class="ui medium rounded image" className="user-img"
-                        src="https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png" />
+                        src='../../../assets/user.png' />
                   <div>  <button className="button">Edit Profile</button></div>
                     <div>
                         This is a profile page.

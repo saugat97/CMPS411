@@ -15,7 +15,7 @@ export default function Login(props) {
       <div className="Login__button" onClick={() => login('Saugat', 'Birat')}>
          <b>Birat</b>
       </div>
-      <div className="Login__button" onClick={() => login('Saugat', 'Zack')}>
+      <div className="Login__button" onClick={() => login('Birat', 'Saugat')}>
          <b>Zack</b>
       </div>     
         {/*<div className="Login__button" onClick={() => login(userId, otherUserId)}>*/}
